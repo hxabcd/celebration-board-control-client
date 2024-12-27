@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>晚会看板</h1>
-    <MediaUpload @fileUploaded="refreshFiles" />
+    <MusicLibrary @fileUploaded="refreshFiles" />
     <ControlPanel />
   </div>
 </template>

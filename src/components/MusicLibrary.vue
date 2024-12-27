@@ -1,125 +1,186 @@
 <template>
-  <div class="relative">
-    <div
-      class="bg-[#E0EAFF] rounded-[10px] absolute"
-      style="left: 0px; width: 623px; top: 0px; height: 507px"></div>
-    <div
-      class="text-[#000000] text-2xl font-['Source_Han_Sans'] absolute"
-      style="left: 23px; width: 74px; top: 7px; height: 32px">
-      音乐库
+  <div class="music-library">
+    <div class="header">
+      <h2>音乐库</h2>
+      <button @click="triggerUpload" class="upload-button">
+        <i class="fa fa-upload" /> 上传
+      </button>
+      <input
+        type="file"
+        ref="fileInput"
+        accept="audio/*"
+        @change="uploadFile"
+        style="display: none"
+      />
     </div>
-    <div
-      class="bg-[#C3D5FA] rounded-[14px] absolute"
-      style="left: 15px; width: 594px; top: 52px; height: 447px"></div>
-    <div
-      class="flex justify-start items-start flex-col gap-2 absolute"
-      style="top: 70px; height: 113.12782287597656px; left: calc(100% - 623px + 32px); width: 560px">
-      <div
-        class="bg-[#E0EAFF] rounded-lg w-[560px] h-[52px] absolute"
-        style="width: 560px">
-        <div
-          class="text-[#3D3D3D] text-xl font-['Source_Han_Sans'] absolute"
-          style="left: 30px; width: 445px; top: calc(100% - 52.56px + 12px); height: 29px">
-          Never Gonna Give You Up - Rick Astley
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          fill="none"
-          version="1.1"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24">
-          <defs>
-            <clipPath id="master_svg0_2_11877">
-              <rect x="0" y="0" width="24" height="24" rx="0" />
-            </clipPath>
-          </defs>
-          <g clip-path="url(#master_svg0_2_11877)">
-            <g>
-              <path
-                d="M19.375999999999998,12.416099986572267L8.77735,19.481829986572265C8.54759,19.635029986572263,8.23715,19.572929986572266,8.0839701,19.343229986572265C8.0292196,19.261029986572268,8,19.164529986572266,8,19.06582998657227L8,4.934329986572266C8,4.658179986572265,8.22386,4.434329986572266,8.5,4.434329986572266C8.59871,4.434329986572266,8.695219999999999,4.4635500865722655,8.77735,4.518300086572266L19.375999999999998,11.583999986572266C19.6057,11.737199986572266,19.6678,12.047699986572265,19.5146,12.277399986572266C19.478,12.332299986572266,19.4309,12.379499986572267,19.375999999999998,12.416099986572267Z"
-                fill="#0256FF"
-                fill-opacity="1" />
-            </g>
-          </g>
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          fill="none"
-          version="1.1"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24">
-          <defs>
-            <clipPath id="master_svg0_2_11881">
-              <rect x="0" y="0" width="24" height="24" rx="0" />
-            </clipPath>
-          </defs>
-          <g clip-path="url(#master_svg0_2_11881)">
-            <g>
-              <path
-                d="M17,6L22,6L22,8L20,8L20,21C20,21.5523,19.5523,22,19,22L5,22C4.44772,22,4,21.5523,4,21L4,8L2,8L2,6L7,6L7,3C7,2.44772,7.44772,2,8,2L16,2C16.552300000000002,2,17,2.44772,17,3L17,6ZM9,11L9,17L11,17L11,11L9,11ZM13,11L13,17L15,17L15,11L13,11ZM9,4L9,6L15,6L15,4L9,4Z"
-                fill="#0256FF"
-                fill-opacity="1" />
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div
-        class="bg-[#E0EAFF] rounded-lg w-[560px] h-[52px] absolute"
-        style="width: 560px">
-        <div
-          class="text-[#3D3D3D] text-xl font-['Source_Han_Sans'] absolute"
-          style="left: 30px; width: 445px; top: calc(100% - 52.56px + 12px); height: 29px">
-          Midnight City - M83
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          fill="none"
-          version="1.1"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24">
-          <defs>
-            <clipPath id="master_svg0_2_12084">
-              <rect x="0" y="0" width="24" height="24" rx="0" />
-            </clipPath>
-          </defs>
-          <g clip-path="url(#master_svg0_2_12084)">
-            <g>
-              <path
-                d="M19.375999999999998,12.416099986572267L8.77735,19.481829986572265C8.54759,19.635029986572263,8.23715,19.572929986572266,8.0839701,19.343229986572265C8.0292196,19.261029986572268,8,19.164529986572266,8,19.06582998657227L8,4.934329986572266C8,4.658179986572265,8.22386,4.434329986572266,8.5,4.434329986572266C8.59871,4.434329986572266,8.695219999999999,4.4635500865722655,8.77735,4.518300086572266L19.375999999999998,11.583999986572266C19.6057,11.737199986572266,19.6678,12.047699986572265,19.5146,12.277399986572266C19.478,12.332299986572266,19.4309,12.379499986572267,19.375999999999998,12.416099986572267Z"
-                fill="#0256FF"
-                fill-opacity="1" />
-            </g>
-          </g>
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          fill="none"
-          version="1.1"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24">
-          <defs>
-            <clipPath id="master_svg0_2_12082">
-              <rect x="0" y="0" width="24" height="24" rx="0" />
-            </clipPath>
-          </defs>
-          <g clip-path="url(#master_svg0_2_12082)">
-            <g>
-              <path
-                d="M17,6L22,6L22,8L20,8L20,21C20,21.5523,19.5523,22,19,22L5,22C4.44772,22,4,21.5523,4,21L4,8L2,8L2,6L7,6L7,3C7,2.44772,7.44772,2,8,2L16,2C16.552300000000002,2,17,2.44772,17,3L17,6ZM9,11L9,17L11,17L11,11L9,11ZM13,11L13,17L15,17L15,11L13,11ZM9,4L9,6L15,6L15,4L9,4Z"
-                fill="#0256FF"
-                fill-opacity="1" />
-            </g>
-          </g>
-        </svg>
+    <div class="music-list">
+      <div v-for="(file, index) in files" :key="index" class="music-item">
+        <span>{{ file }}</span>
+        <button @click="deleteFile(file)" class="delete-button">
+          <i class="fa fa-xmark" />
+        </button>
+        <button @click="playFile(file)" class="play-button">
+          <i class="fa fa-play" />
+        </button>
       </div>
     </div>
+    <audio ref="audioPlayer" controls style="display: none"></audio>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      files: [],
+    };
+  },
+  methods: {
+    // 获取音乐列表
+    fetchFiles() {
+      axios
+        .get("http://localhost:3000/files")
+        .then((response) => {
+          this.files = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching files:", error);
+        });
+    },
+    // 触发文件上传
+    triggerUpload() {
+      this.$refs.fileInput.click();
+    },
+    // 上传文件
+    uploadFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      axios
+        .post("http://localhost:3000/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(() => {
+          this.fetchFiles(); // 刷新列表
+          alert("文件上传成功！");
+        })
+        .catch((error) => {
+          console.error("Error uploading file:", error);
+        });
+    },
+    // 删除文件
+    deleteFile(file) {
+      axios
+        .delete(`http://localhost:3000/uploads/${file}`)
+        .then(() => {
+          this.fetchFiles(); // 刷新列表
+          alert("文件删除成功！");
+        })
+        .catch((error) => {
+          console.error("Error deleting file:", error);
+        });
+    },
+    // 播放文件
+    playFile(file) {
+      const audioPlayer = this.$refs.audioPlayer;
+      audioPlayer.src = `http://localhost:3000/uploads/${file}`;
+      audioPlayer.play();
+    },
+  },
+  mounted() {
+    this.fetchFiles(); // 初始化加载音乐列表
+  },
+};
+</script>
+
+<style scoped>
+.music-library {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #e0e7ff;
+  /* background-color: #f8f9fa; */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.upload-button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.upload-button:hover {
+  background-color: #4338ca;
+}
+
+.music-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.music-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c7d2fe;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.music-item span {
+  flex-grow: 1;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #dc2626;
+}
+
+.play-button {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.play-button:hover {
+  background-color: #16a34a;
+}
+</style>
