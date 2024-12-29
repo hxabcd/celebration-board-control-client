@@ -1,7 +1,7 @@
 <template>
-  <div class="music-library">
+  <div class="image-library">
     <div class="header">
-      <h2>音乐库</h2>
+      <h2>图片库</h2>
       <div>
         <button @click="triggerUpload" class="header-button">
           <i class="fa fa-upload" /> 上传
@@ -10,16 +10,16 @@
           <i class="fa fa-rotate-right" /> 刷新
         </button>
       </div>
-      <input type="file" ref="fileInput" accept="audio/*" @change="uploadFile" style="display: none" />
+      <input type="file" ref="fileInput" accept="image/*" @change="uploadFile" style="display: none" />
     </div>
-    <div class="music-list">
-      <div v-for="(file, index) in files" :key="index" class="music-item">
+    <div class="image-list">
+      <div v-for="(file, index) in files" :key="index" class="image-item">
         <span>{{ file }}</span>
         <button @click="deleteFile(file)" class="delete-button">
           <i class="fa fa-xmark" />
         </button>
-        <button @click="playFile(file)" class="play-button">
-          <i class="fa fa-play" />
+        <button @click="playFile(file)" class="select-button">
+          <i class="fa fa-check" />
         </button>
       </div>
     </div>
@@ -36,26 +36,23 @@ export default {
       files: [],
     };
   },
-  mounted() {
-    this.fetchFiles(); // 初始化加载音乐列表
-  },
   methods: {
-    // 获取音乐列表
+    // 获取图片列表
     fetchFiles() {
       axios
-      .get("https://api.xxtsoft.top/fes/musics")
-      .then((response) => {
-        this.files = response.data;
-      })
+        .get("https://api.xxtsoft.top/fes/images")
+        .then((response) => {
+          this.files = response.data;
+        })
         .catch((error) => {
           console.error("Error fetching files:", error);
         });
     },
-    // 触发文件上传
+    // 触发图片上传
     triggerUpload() {
       this.$refs.fileInput.click();
     },
-    // 上传文件
+    // 上传图片
     uploadFile(event) {
       const file = event.target.files[0]
       if (!file) return;
@@ -64,45 +61,48 @@ export default {
       formData.append("file", file, encodeURIComponent(file.name))
 
       axios
-        .post("https://api.xxtsoft.top/fes/upload-music", formData, {
+        .post("https://api.xxtsoft.top/fes/upload-image", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then(() => {
           this.fetchFiles(); // 刷新列表
-          // alert("文件上传成功！");
+          // alert("图片上传成功！");
         })
         .catch((error) => {
           console.error("Error uploading file:", error);
         });
     },
 
-    // 删除文件
+    // 删除图片
     deleteFile(file) {
       axios
-        .get(`https://api.xxtsoft.top/fes/remove-music?file=${file}`)
+        .get(`https://api.xxtsoft.top/fes/remove-image?file=${file}`)
         .then(() => {
           this.fetchFiles(); // 刷新列表
-          // alert("文件删除成功！");
+          // alert("图片删除成功！");
         })
         .catch((error) => {
           console.error("Error deleting file:", error);
         });
     },
-    // 发送播放指令
+    // 发送谢欢指令
     playFile(file) {
-      console.log(`Command sent: music play "${file}"`);
-      ws.send(JSON.stringify({
-        target: 'presentation', type: 'music', action: 'play', file: file
-      }));
+      console.log(`Command sent: image show "${file}"`);
+      ws.send(JSON.stringify(
+        { target: 'presentation', type: 'image', file: file }
+      ));
     }
+  },
+  mounted() {
+    this.fetchFiles(); // 初始化加载图片列表
   },
 };
 </script>
 
 <style scoped>
-.music-library {
+.image-library {
   max-width: 600px;
   padding: 20px 10px;
   margin: 20px 0;
@@ -143,13 +143,13 @@ h2 {
   background-color: #0056b3;
 }
 
-.music-list {
+.image-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.music-item {
+.image-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -164,11 +164,11 @@ h2 {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.music-item:hover {
+.image-item:hover {
   background-color: #f1f1f1;
 }
 
-.music-item span {
+.image-item span {
   flex-grow: 1;
 }
 
@@ -190,7 +190,7 @@ h2 {
   background-color: #dc2626;
 }
 
-.play-button {
+.select-button {
   background-color: #22c55e;
   color: white;
   border: none;
@@ -203,7 +203,7 @@ h2 {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.play-button:hover {
+.selecct-button:hover {
   background-color: #16a34a;
 }
 </style>
